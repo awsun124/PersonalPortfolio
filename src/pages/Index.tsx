@@ -3,6 +3,12 @@ import HeroSection from "@/components/HeroSection";
 
 const projects = [
   {
+    id: "spectre-music-classifier",
+    title: "Spectre Music Genre Classifier",
+    category: "Machine Learning",
+    date: "2026",
+  },
+  {
     id: "penalty-kick-prediction",
     title: "Predicting Penalty Kick Direction",
     category: "Machine Learning",

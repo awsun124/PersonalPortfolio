@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound";
 import PenaltyKickProject from "./pages/PenaltyKickProject";
 import CarmatesProject from "./pages/CarmatesProject";
 import BinBotProject from "./pages/BinBotProject";
+import SpectreProject from "./pages/SpectreProject";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +35,11 @@ const App = () => (
           <Route
             path="/project/binbot-recycling"
             element={<BinBotProject />}
+          />
+
+          <Route
+            path="/project/spectre-music-classifier"
+            element={<SpectreProject />}
           />
 
           <Route path="*" element={<NotFound />} />
