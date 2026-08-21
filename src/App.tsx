@@ -1,52 +1,36 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Index from "./pages/Index";
+import HomePage from "./pages/HomePage";
 import NotFound from "./pages/NotFound";
 import PenaltyKickProject from "./pages/PenaltyKickProject";
 import CarmatesProject from "./pages/CarmatesProject";
 import BinBotProject from "./pages/BinBotProject";
 import SpectreProject from "./pages/SpectreProject";
-
-const queryClient = new QueryClient();
+import AspidaProject from "./pages/AspidaProject";
+import SuncastProject from "./pages/SuncastProject";
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-
-          <Route
-            path="/project/penalty-kick-prediction"
-            element={<PenaltyKickProject />}
-          />
-
-          <Route
-            path="/project/carmates-app"
-            element={<CarmatesProject />}
-          />
-
-          <Route
-            path="/project/binbot-recycling"
-            element={<BinBotProject />}
-          />
-
-          <Route
-            path="/project/spectre-music-classifier"
-            element={<SpectreProject />}
-          />
-
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route
+        path="/project/penalty-kick-prediction"
+        element={<PenaltyKickProject />}
+      />
+      <Route path="/project/carmates-app" element={<CarmatesProject />} />
+      <Route path="/project/binbot-recycling" element={<BinBotProject />} />
+      <Route
+        path="/project/spectre-music-classifier"
+        element={<SpectreProject />}
+      />
+      <Route path="/project/aspida-ai-chatbot" element={<AspidaProject />} />
+      <Route
+        path="/project/duke-impact-investing-suncast"
+        element={<SuncastProject />}
+      />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  </BrowserRouter>
 );
 
 export default App;
