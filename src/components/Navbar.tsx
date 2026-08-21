@@ -1,5 +1,5 @@
-import { useEffect, useState, type MouseEvent } from "react";
-import { Menu, Moon, Sun, X } from "lucide-react";
+import { useState, type MouseEvent } from "react";
+import { Menu, X } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const navItems = [
@@ -10,25 +10,8 @@ const navItems = [
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDark, setIsDark] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    const shouldUseDarkMode = savedTheme === "dark";
-
-    setIsDark(shouldUseDarkMode);
-    document.documentElement.classList.toggle("dark", shouldUseDarkMode);
-  }, []);
-
-  const toggleTheme = () => {
-    const nextThemeIsDark = !isDark;
-
-    setIsDark(nextThemeIsDark);
-    document.documentElement.classList.toggle("dark", nextThemeIsDark);
-    localStorage.setItem("theme", nextThemeIsDark ? "dark" : "light");
-  };
 
   const goHome = (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
@@ -93,19 +76,6 @@ const Navbar = () => {
           </nav>
 
           <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
-            <button
-              type="button"
-              onClick={toggleTheme}
-              className="p-1.5 sm:p-2 rounded-full hover:bg-muted/60 transition-all"
-              aria-label="Toggle theme"
-            >
-              {isDark ? (
-                <Sun className="h-4 w-4 sm:h-5 sm:w-5" />
-              ) : (
-                <Moon className="h-4 w-4 sm:h-5 sm:w-5" />
-              )}
-            </button>
-
             <button
               type="button"
               className="md:hidden p-1.5 sm:p-2"
