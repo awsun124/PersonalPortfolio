@@ -22,7 +22,7 @@
     --muted: 33 30% 88%;
     --muted-foreground: 0 0% 40%;
 
-    --accent: 140 20% 50%;
+    --accent: 96 165 250; /* #60A5FA */
     --accent-foreground: 36 44% 96%;
 
     --destructive: 0 84% 60%;
@@ -56,7 +56,6 @@
     --muted: 0 0% 20%;
     --muted-foreground: 0 0% 60%;
 
-    --accent: 140 20% 45%;
     --accent-foreground: 36 44% 96%;
 
     --destructive: 0 62% 50%;
@@ -98,104 +97,47 @@
     isolation: isolate;
     overflow: clip;
     color: rgb(226 232 240);
-    background-color: #030817;
-    background-image:
-      radial-gradient(ellipse at 8% 18%, rgb(29 78 216 / 0.62), transparent 36rem),
-      radial-gradient(ellipse at 84% 12%, rgb(37 99 235 / 0.5), transparent 40rem),
-      radial-gradient(ellipse at 72% 58%, rgb(126 34 206 / 0.28), transparent 34rem),
-      radial-gradient(ellipse at 18% 80%, rgb(8 145 178 / 0.3), transparent 42rem),
-      linear-gradient(145deg, #020617 0%, #071b3f 48%, #08051d 100%);
-  }
-
-  .space-background::before,
-  .space-background::after {
-    content: "";
-    position: absolute;
-    inset: -5%;
-    z-index: 0;
-    pointer-events: none;
-    will-change: transform, opacity;
+    background-color: #153278;
   }
 
   .space-background::before {
-    opacity: 0.7;
-    background-image:
-      radial-gradient(circle, rgb(255 255 255 / 0.9) 0 1px, transparent 1.5px),
-      radial-gradient(circle, rgb(125 211 252 / 0.7) 0 1px, transparent 1.5px);
-    background-position: 0 0, 47px 73px;
-    background-size: 140px 140px, 222px 222px;
-    animation:
-      starFadeIn 1.8s ease-out both,
-      brightStarTwinkle 3s ease-in-out 1.8s infinite alternate;
-  }
-
-  .space-background::after {
-    opacity: 0.35;
-    background-image: radial-gradient(circle, white 0 1px, transparent 1.5px);
-    background-position: 25px 40px;
-    background-size: 83px 83px;
-    mask-image: linear-gradient(to bottom, black, transparent 88%);
-    animation:
-      faintStarFadeIn 2.4s ease-out 0.25s both,
-      starTwinkle 2.2s ease-in-out 2.65s infinite alternate;
-  }
-
-  @keyframes starFadeIn {
-    from { opacity: 0; }
-    to { opacity: 0.7; }
-  }
-
-  @keyframes faintStarFadeIn {
-    from { opacity: 0; }
-    to { opacity: 0.35; }
-  }
-
-  @keyframes brightStarTwinkle {
-    from { filter: brightness(0.5); }
-    to { filter: brightness(1.75); }
-  }
-
-  @keyframes starTwinkle {
-    from { filter: brightness(0.4); }
-    to { filter: brightness(2); }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .space-background::before,
-    .space-background::after {
-      animation: none;
-    }
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: url("/images/constellations.svg");
+    background-position: center top;
+    background-size: 1600px 1400px;
+    background-repeat: repeat;
   }
 
   .space-panel,
   .hero-space-panel,
   .space-card {
     border: 1px solid rgb(148 163 184 / 0.18);
-    background: linear-gradient(145deg, rgb(15 23 42 / 0.82), rgb(15 23 42 / 0.58));
+    background: #0d224f;
     box-shadow: 0 24px 80px rgb(2 6 23 / 0.42), inset 0 1px 0 rgb(255 255 255 / 0.06);
-    backdrop-filter: blur(18px);
+    backdrop-filter: none;
   }
 
   .hero-space-panel {
-    border-color: rgb(103 232 249 / 0.24);
-    background:
-      radial-gradient(circle at 82% 25%, rgb(14 116 144 / 0.24), transparent 22rem),
-      linear-gradient(145deg, rgb(8 25 56 / 0.94), rgb(10 38 76 / 0.84));
+    border-color: rgb(var(--accent) / 0.24);
     box-shadow:
       0 28px 90px rgb(5 8 35 / 0.58),
-      0 0 55px rgb(37 99 235 / 0.12),
       inset 0 1px 0 rgb(255 255 255 / 0.08);
   }
 
   .space-card:hover {
-    border-color: rgb(103 232 249 / 0.35);
+    border-color: rgb(var(--accent) / 0.35);
     box-shadow: 0 24px 70px rgb(8 47 73 / 0.5), inset 0 1px 0 rgb(255 255 255 / 0.1);
   }
 
   .space-background .pill-nav {
     color: white;
     border-color: rgb(148 163 184 / 0.2);
-    background: rgb(5 17 40 / 0.8);
+    background: #0a1c43;
+    backdrop-filter: none;
     box-shadow: 0 12px 40px rgb(2 6 23 / 0.35);
   }
 
@@ -212,7 +154,6 @@
     --secondary-foreground: 210 40% 96%;
     --muted: 218 34% 14%;
     --muted-foreground: 215 20% 70%;
-    --accent: 262 70% 62%;
     --accent-foreground: 210 40% 98%;
     --border: 216 30% 22%;
     --input: 216 30% 22%;
@@ -254,17 +195,6 @@
     }
   }
 
-  @keyframes slideDown {
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
   @keyframes scaleIn {
     from {
       opacity: 0;
@@ -282,10 +212,6 @@
 
   .animate-slide-up {
     animation: slideUp 0.6s ease-out;
-  }
-
-  .animate-slide-down {
-    animation: slideDown 0.6s ease-out;
   }
 
   .animate-scale-in {
@@ -306,24 +232,6 @@
 
   .stagger-3 {
     animation-delay: 0.3s;
-    opacity: 0;
-    animation-fill-mode: forwards;
-  }
-
-  .stagger-4 {
-    animation-delay: 0.4s;
-    opacity: 0;
-    animation-fill-mode: forwards;
-  }
-
-  .stagger-5 {
-    animation-delay: 0.5s;
-    opacity: 0;
-    animation-fill-mode: forwards;
-  }
-
-  .stagger-6 {
-    animation-delay: 0.6s;
     opacity: 0;
     animation-fill-mode: forwards;
   }

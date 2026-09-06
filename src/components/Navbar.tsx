@@ -59,7 +59,7 @@ const Navbar = () => {
             <a
               href="/"
               onClick={goHome}
-              className="text-sm font-medium hover:bg-muted/60 rounded-full px-4 py-2 transition-all"
+              className="text-sm font-medium hover:bg-muted/60 hover:text-white rounded-full px-4 py-2 transition-all"
             >
               Home
             </a>
@@ -68,7 +68,7 @@ const Navbar = () => {
                 key={item.hash}
                 href={`/${item.hash}`}
                 onClick={(event) => goToSection(event, item.hash)}
-                className="text-sm font-medium hover:bg-muted/60 rounded-full px-4 py-2 transition-all"
+                className="text-sm font-medium hover:bg-muted/60 hover:text-white rounded-full px-4 py-2 transition-all"
               >
                 {item.label}
               </a>
@@ -98,7 +98,7 @@ const Navbar = () => {
               <a
                 href="/"
                 onClick={goHome}
-                className="text-sm font-medium hover:text-accent transition-colors"
+                className="text-sm font-medium hover:text-white transition-colors"
               >
                 Home
               </a>
@@ -107,7 +107,7 @@ const Navbar = () => {
                   key={item.hash}
                   href={`/${item.hash}`}
                   onClick={(event) => goToSection(event, item.hash)}
-                  className="text-sm font-medium hover:text-accent transition-colors"
+                  className="text-sm font-medium hover:text-white transition-colors"
                 >
                   {item.label}
                 </a>

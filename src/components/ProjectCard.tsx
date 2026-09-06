@@ -11,7 +11,7 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => (
     className={`space-card block rounded-3xl p-6 hover:scale-[1.02] transition-all animate-slide-up stagger-${Math.min(index + 1, 3)}`}
   >
     <div className="space-y-3">
-      <p className="text-sm text-cyan-200/80">
+      <p className="text-sm text-accent">
         {project.category} • {project.year}
       </p>
       <h3 className="text-2xl font-bold text-white">{project.title}</h3>

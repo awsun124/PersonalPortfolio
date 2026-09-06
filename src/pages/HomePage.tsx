@@ -5,7 +5,7 @@ import Hero from "@/components/home/Hero";
 import ProjectsSection from "@/components/home/ProjectsSection";
 
 const HomePage = () => (
-  <div className="space-background min-h-screen animate-fade-in">
+  <div className="space-background min-h-screen">
     <Navbar />
     <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="my-12 animate-fade-in space-y-6">

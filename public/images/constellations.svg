@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1400" viewBox="0 0 1600 1400">
+  <g fill="none" stroke="#b6c9e2" stroke-opacity="0.13" stroke-width="0.65" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="65,90 113,143 83,213 157,246 191,310" />
+    <polyline points="1175,72 1242,119 1325,98 1370,170 1460,204" />
+    <polyline points="340,410 399,371 468,427 432,503" />
+    <polyline points="1045,610 1113,567 1160,647 1242,690 1291,655" />
+    <polyline points="84,817 153,773 203,835 173,907" />
+    <polyline points="1380,948 1450,889 1493,965 1442,1036" />
+    <polyline points="475,1160 557,1128 612,1199 696,1177" />
+    <polyline points="920,1300 974,1225 1048,1256 1096,1193" />
+  </g>
+  <g fill="#d6e2f1" fill-opacity="0.42">
+    <circle cx="65" cy="90" r="1.2" />
+    <circle cx="113" cy="143" r="1.4" />
+    <circle cx="83" cy="213" r="1" />
+    <circle cx="157" cy="246" r="1.2" />
+    <circle cx="191" cy="310" r="1.4" />
+    <circle cx="1175" cy="72" r="1.4" />
+    <circle cx="1242" cy="119" r="1.2" />
+    <circle cx="1325" cy="98" r="1.2" />
+    <circle cx="1370" cy="170" r="1.4" />
+    <circle cx="1460" cy="204" r="1.4" />
+    <circle cx="340" cy="410" r="1.2" />
+    <circle cx="399" cy="371" r="1.2" />
+    <circle cx="468" cy="427" r="1.4" />
+    <circle cx="432" cy="503" r="1.4" />
+    <circle cx="1045" cy="610" r="1.2" />
+    <circle cx="1113" cy="567" r="1.2" />
+    <circle cx="1160" cy="647" r="1.4" />
+    <circle cx="1242" cy="690" r="1.2" />
+    <circle cx="1291" cy="655" r="1.2" />
+    <circle cx="84" cy="817" r="1.2" />
+    <circle cx="153" cy="773" r="1.2" />
+    <circle cx="203" cy="835" r="1" />
+    <circle cx="173" cy="907" r="1" />
+    <circle cx="1380" cy="948" r="1.4" />
+    <circle cx="1450" cy="889" r="1" />
+    <circle cx="1493" cy="965" r="1.2" />
+    <circle cx="1442" cy="1036" r="1" />
+    <circle cx="475" cy="1160" r="1.4" />
+    <circle cx="557" cy="1128" r="1.4" />
+    <circle cx="612" cy="1199" r="1.4" />
+    <circle cx="696" cy="1177" r="1" />
+    <circle cx="920" cy="1300" r="1" />
+    <circle cx="974" cy="1225" r="1" />
+    <circle cx="1048" cy="1256" r="1.4" />
+    <circle cx="1096" cy="1193" r="1.2" />
+  </g>
+</svg>

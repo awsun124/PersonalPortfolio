@@ -16,7 +16,7 @@ const ContactSection = () => (
             href="https://www.linkedin.com/in/andy-sun-7b75a9266"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-10 py-4 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-medium hover:brightness-110 hover:scale-105 transition-all shadow-lg shadow-blue-950/40"
+            className="px-10 py-4 rounded-full bg-accent text-[#080B14] font-medium hover:brightness-110 hover:scale-105 transition-all shadow-lg shadow-blue-950/40"
           >
             LinkedIn
           </a>
