@@ -5,8 +5,8 @@ const Hero = () => (
   <section className="hero-space-panel relative max-w-6xl mx-auto min-h-[calc(87svh-9rem)] rounded-[2.5rem] overflow-hidden flex items-center text-white">
     <div className="w-full max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 p-8 pb-24 md:p-12 md:pb-24 lg:p-16 lg:pb-24">
       <div className="order-2 max-w-2xl space-y-4 md:space-y-6 text-center md:text-left">
-        <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold leading-[1.1] tracking-tight">
-          Hi, I'm <span className="text-accent">Andy</span>
+        <h1 className="text-white text-4xl md:text-5xl lg:text-7xl font-normal leading-[1.1] tracking-tight">
+          Hi, I'm <span className="font-bold text-[#82CAFF]">Andy</span>
         </h1>
         <p className="text-slate-300 text-lg md:text-xl leading-relaxed max-w-xl">
           I am a student at Duke University, studying Computer Science and Statistics, with experience building full-stack software and AI/ML applications.
