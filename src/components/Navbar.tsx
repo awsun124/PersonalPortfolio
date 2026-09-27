@@ -1,121 +1,69 @@
-import { useState, type MouseEvent } from "react";
-import { Menu, X } from "lucide-react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { FolderOpen, House, Mail, Menu, UserRound, X } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 
 const navItems = [
-  { label: "About", hash: "#about" },
-  { label: "Projects", hash: "#projects" },
-  { label: "Contact Me", hash: "#contact" },
+  { label: "About", id: "about", icon: UserRound },
+  { label: "Projects", id: "projects", icon: FolderOpen },
+  { label: "Contact", id: "contact", icon: Mail },
 ];
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const navigate = useNavigate();
+  const [activeSection, setActiveSection] = useState("");
   const location = useLocation();
 
-  const goHome = (event: MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault();
+  useEffect(() => {
     setIsMenuOpen(false);
-
-    if (location.pathname === "/") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+    if (location.pathname !== "/") {
+      setActiveSection("projects");
       return;
     }
 
-    navigate("/");
-    setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 100);
-  };
+    const target = location.hash && document.getElementById(location.hash.slice(1));
+    if (target) target.scrollIntoView({ behavior: "auto" });
 
-  const goToSection = (event: MouseEvent<HTMLAnchorElement>, hash: string) => {
-    event.preventDefault();
-    setIsMenuOpen(false);
-
-    const scrollToSection = () => {
-      document.querySelector(hash)?.scrollIntoView({ behavior: "smooth" });
+    const updateSection = () => {
+      let current = "";
+      for (const { id } of navItems) {
+        const section = document.getElementById(id);
+        if (section && section.getBoundingClientRect().top <= window.innerHeight * 0.45) current = id;
+      }
+      setActiveSection(current);
     };
+    updateSection();
+    window.addEventListener("scroll", updateSection, { passive: true });
+    return () => window.removeEventListener("scroll", updateSection);
+  }, [location.pathname, location.hash]);
 
-    if (location.pathname === "/") {
-      scrollToSection();
-      return;
-    }
-
-    navigate("/");
-    setTimeout(scrollToSection, 100);
-  };
+  const links = navItems.map(({ label, id, icon: Icon }) => (
+    <Link
+      key={id}
+      to={`/#${id}`}
+      onClick={() => {
+        setIsMenuOpen(false);
+        if (location.pathname === "/") document.getElementById(id)?.scrollIntoView({ behavior: "auto" });
+      }}
+      aria-current={activeSection === id ? "location" : undefined}
+      className={`flex items-center gap-3 rounded-full px-4 py-3 text-sm transition-colors ${activeSection === id ? "bg-accent/10 text-accent" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}
+    >
+      <Icon className="w-4 h-4" aria-hidden="true" />{label}
+    </Link>
+  ));
 
   return (
-    <header className="sticky top-0 z-50 py-2 sm:py-4">
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-14 sm:h-16 pill-nav px-4 sm:px-6">
-          <a
-            href="/"
-            onClick={goHome}
-            className="text-base sm:text-lg font-bold font-serif truncate"
-          >
-            Andy Sun
-          </a>
-
-          <nav className="hidden md:flex items-center gap-2">
-            <a
-              href="/"
-              onClick={goHome}
-              className="text-sm font-medium hover:bg-muted/60 hover:text-white rounded-full px-4 py-2 transition-all"
-            >
-              Home
-            </a>
-            {navItems.map((item) => (
-              <a
-                key={item.hash}
-                href={`/${item.hash}`}
-                onClick={(event) => goToSection(event, item.hash)}
-                className="text-sm font-medium hover:bg-muted/60 hover:text-white rounded-full px-4 py-2 transition-all"
-              >
-                {item.label}
-              </a>
-            ))}
-          </nav>
-
-          <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
-            <button
-              type="button"
-              className="md:hidden p-1.5 sm:p-2"
-              onClick={() => setIsMenuOpen((isOpen) => !isOpen)}
-              aria-label="Toggle menu"
-              aria-expanded={isMenuOpen}
-            >
-              {isMenuOpen ? (
-                <X className="h-5 w-5 sm:h-6 sm:w-6" />
-              ) : (
-                <Menu className="h-5 w-5 sm:h-6 sm:w-6" />
-              )}
-            </button>
-          </div>
-        </div>
-
-        {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-border animate-fade-in">
-            <nav className="flex flex-col gap-4">
-              <a
-                href="/"
-                onClick={goHome}
-                className="text-sm font-medium hover:text-white transition-colors"
-              >
-                Home
-              </a>
-              {navItems.map((item) => (
-                <a
-                  key={item.hash}
-                  href={`/${item.hash}`}
-                  onClick={(event) => goToSection(event, item.hash)}
-                  className="text-sm font-medium hover:text-white transition-colors"
-                >
-                  {item.label}
-                </a>
-              ))}
-            </nav>
-          </div>
-        )}
-      </div>
+    <header className="sticky top-0 z-50 p-3 lg:fixed lg:top-1/2 lg:right-5 lg:-translate-y-1/2 lg:p-0">
+      <nav aria-label="Main navigation" className="pill-nav flex items-center justify-between px-5 py-3 lg:flex-col lg:rounded-[2rem] lg:p-3 lg:gap-4">
+        <Link to="/#home" aria-label="Andy Sun, home" onClick={() => { setIsMenuOpen(false); if (location.pathname === "/") window.scrollTo({ top: 0, behavior: "auto" }); }} className="font-serif font-bold lg:py-3">
+          <span className="lg:hidden">Andy Sun</span>
+          <House className="hidden lg:block w-5 h-5" />
+        </Link>
+        <div className="hidden lg:flex flex-col gap-2 border-t border-border/60 pt-3">{links}</div>
+        <button type="button" className="lg:hidden p-2" aria-label={isMenuOpen ? "Close menu" : "Open menu"} aria-expanded={isMenuOpen} aria-controls="mobile-navigation" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        </button>
+      </nav>
+      {isMenuOpen && <nav id="mobile-navigation" aria-label="Mobile navigation" className="lg:hidden mt-2 p-3 rounded-2xl border border-border bg-popover shadow-sm">{links}</nav>}
     </header>
   );
 };

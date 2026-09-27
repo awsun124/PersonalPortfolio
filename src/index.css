@@ -4,68 +4,36 @@
 
 @layer base {
   :root {
-    --background: 36 44% 96%;
-    --foreground: 0 0% 18%;
+    --background: 28.42 27.54% 86.47%; /* #E6DCD3 */
+    --foreground: 26.67 10.34% 17.06%;
 
-    --card: 33 40% 94%;
-    --card-foreground: 0 0% 18%;
+    --card: 32.73 40.74% 94.71%;
+    --card-foreground: 26.67 10.34% 17.06%;
 
-    --popover: 36 44% 96%;
-    --popover-foreground: 0 0% 18%;
+    --popover: 32 35% 97%;
+    --popover-foreground: 24 12% 18%;
 
-    --primary: 0 0% 18%;
-    --primary-foreground: 36 44% 96%;
+    --primary: 24 12% 22%;
+    --primary-foreground: 32 35% 97%;
 
-    --secondary: 25 30% 70%;
-    --secondary-foreground: 0 0% 18%;
+    --secondary: 28 24% 81%;
+    --secondary-foreground: 24 12% 18%;
 
-    --muted: 33 30% 88%;
-    --muted-foreground: 0 0% 40%;
+    --muted: 28 24% 89%;
+    --muted-foreground: 28.24 9.19% 36.27%;
 
-    --accent: 96 165 250; /* #60A5FA */
-    --accent-foreground: 36 44% 96%;
+    --accent: 125 76 54; /* #7D4C36 */
+    --accent-foreground: 32 35% 97%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 36 44% 96%;
+    --destructive: 0 65% 42%;
+    --destructive-foreground: 32 35% 97%;
 
-    --border: 33 25% 85%;
-    --input: 33 25% 85%;
-    --ring: 0 0% 18%;
+    --border: 28.80 20.66% 76.27%;
+    --input: 28 18% 75%;
+    --ring: 24 12% 22%;
 
     --radius: 1rem;
-
-    --surface-elevated: 36 44% 98%;
-  }
-
-  .dark {
-    --background: 0 0% 10%;
-    --foreground: 36 44% 96%;
-
-    --card: 0 0% 14%;
-    --card-foreground: 36 44% 96%;
-
-    --popover: 0 0% 10%;
-    --popover-foreground: 36 44% 96%;
-
-    --primary: 36 44% 96%;
-    --primary-foreground: 0 0% 18%;
-
-    --secondary: 25 15% 30%;
-    --secondary-foreground: 36 44% 96%;
-
-    --muted: 0 0% 20%;
-    --muted-foreground: 0 0% 60%;
-
-    --accent-foreground: 36 44% 96%;
-
-    --destructive: 0 62% 50%;
-    --destructive-foreground: 36 44% 96%;
-
-    --border: 0 0% 20%;
-    --input: 0 0% 20%;
-    --ring: 36 44% 96%;
-
-    --surface-elevated: 0 0% 16%;
+    --surface-elevated: 32 35% 97%;
   }
 }
 
@@ -76,6 +44,15 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--accent));
+    outline-offset: 4px;
+  }
+
+  ::selection {
+    background: rgb(var(--accent) / 0.18);
   }
 
   html {
@@ -89,22 +66,27 @@
 
 @layer utilities {
   .pill-nav {
-    @apply rounded-full bg-[hsl(var(--surface-elevated))] backdrop-blur-lg border border-border/50;
+    @apply rounded-full border border-border/60 text-foreground;
+    background: hsl(var(--surface-elevated) / 0.94);
+    box-shadow: 0 8px 30px rgb(62 43 30 / 0.06);
+    backdrop-filter: blur(16px);
   }
 
-  .space-background {
+  .space-background,
+  .project-background {
     position: relative;
     isolation: isolate;
     overflow: clip;
-    color: rgb(226 232 240);
-    background-color: #153278;
+    color: hsl(var(--foreground));
+    background-color: #E6DCD3;
   }
 
-  .space-background::before {
+  .space-background::before,
+  .project-background::before {
     content: "";
     position: absolute;
     inset: 0;
-    z-index: 0;
+    z-index: -1;
     pointer-events: none;
     background-image: url("/images/constellations.svg");
     background-position: center top;
@@ -113,66 +95,25 @@
   }
 
   .space-panel,
-  .hero-space-panel,
   .space-card {
-    border: 1px solid rgb(148 163 184 / 0.18);
-    background: #0d224f;
-    box-shadow: 0 24px 80px rgb(2 6 23 / 0.42), inset 0 1px 0 rgb(255 255 255 / 0.06);
-    backdrop-filter: none;
-  }
-
-  .hero-space-panel {
-    border-color: rgb(var(--accent) / 0.24);
-    box-shadow:
-      0 28px 90px rgb(5 8 35 / 0.58),
-      inset 0 1px 0 rgb(255 255 255 / 0.08);
+    border: 1px solid hsl(var(--border) / 0.65);
+    background: hsl(var(--card));
+    box-shadow: 0 12px 36px rgb(62 43 30 / 0.06);
   }
 
   .space-card:hover {
-    border-color: rgb(var(--accent) / 0.35);
-    box-shadow: 0 24px 70px rgb(8 47 73 / 0.5), inset 0 1px 0 rgb(255 255 255 / 0.1);
+    border-color: rgb(var(--accent) / 0.5);
+    box-shadow: 0 18px 40px rgb(62 43 30 / 0.12);
   }
 
-  .space-background .pill-nav {
-    color: white;
-    border-color: rgb(148 163 184 / 0.2);
-    background: #0a1c43;
-    backdrop-filter: none;
-    box-shadow: 0 12px 40px rgb(2 6 23 / 0.35);
-  }
-
-  .project-background {
-    --background: 222 55% 6%;
-    --foreground: 210 40% 96%;
-    --card: 220 43% 10%;
-    --card-foreground: 210 40% 96%;
-    --popover: 220 43% 10%;
-    --popover-foreground: 210 40% 96%;
-    --primary: 199 89% 58%;
-    --primary-foreground: 222 55% 6%;
-    --secondary: 218 36% 16%;
-    --secondary-foreground: 210 40% 96%;
-    --muted: 218 34% 14%;
-    --muted-foreground: 215 20% 70%;
-    --accent-foreground: 210 40% 98%;
-    --border: 216 30% 22%;
-    --input: 216 30% 22%;
-    --ring: 199 89% 58%;
-    --surface-elevated: 220 43% 9%;
-    color: hsl(var(--foreground));
-    background-color: #060b18;
-    background-image:
-      radial-gradient(circle at 12% 8%, rgb(37 99 235 / 0.18), transparent 30rem),
-      radial-gradient(circle at 88% 22%, rgb(109 40 217 / 0.12), transparent 34rem),
-      linear-gradient(160deg, #060b18 0%, #091329 52%, #050812 100%);
-    background-attachment: fixed;
-  }
-
-  .project-background .pill-nav {
-    color: hsl(var(--foreground));
-    border-color: rgb(148 163 184 / 0.16);
-    background: rgb(8 17 36 / 0.82);
-    box-shadow: 0 12px 40px rgb(2 6 23 / 0.3);
+  .project-background main {
+    position: relative;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+    border: 1px solid hsl(var(--border) / 0.65);
+    border-radius: 2rem;
+    background: hsl(var(--card));
+    box-shadow: 0 16px 48px rgb(62 43 30 / 0.06);
   }
 
   @keyframes fadeIn {
@@ -236,4 +177,56 @@
     animation-fill-mode: forwards;
   }
 
+}
+
+@media (min-width: 1024px) {
+  .space-background,
+  .project-background {
+    padding-right: 11rem;
+    padding-left: 1.5rem;
+  }
+}
+
+.computer-constellation {
+  color: #302B27;
+}
+
+.constellation-star {
+  animation: fadeIn 1.8s ease-out var(--delay) both;
+}
+
+.constellation-line {
+  stroke-dasharray: 1;
+  animation: connectStars 2.4s ease-in-out var(--delay) both;
+}
+
+.constellation-glimmer {
+  animation: twinkle 5s ease-in-out 5s infinite both;
+}
+
+@keyframes connectStars {
+  from { opacity: 0; stroke-dashoffset: 1; }
+  to { opacity: 0.55; stroke-dashoffset: 0; }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 0.65; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .interest-photo:hover .interest-caption {
+    visibility: visible;
+    opacity: 1;
+  }
 }

@@ -14,8 +14,8 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => (
       <p className="text-sm text-accent">
         {project.category} • {project.year}
       </p>
-      <h3 className="text-2xl font-bold text-white">{project.title}</h3>
-      <p className="text-slate-300">View project →</p>
+      <h3 className="text-2xl font-bold text-foreground">{project.title}</h3>
+      <p className="text-muted-foreground">View project →</p>
     </div>
   </a>
 );

@@ -4,7 +4,7 @@ import { projects } from "@/data/projects";
 const ProjectsSection = () => (
   <section id="projects" className="scroll-mt-32 py-12">
     <div className="flex items-center justify-between mb-12 animate-slide-up">
-      <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white">
+      <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">
         Projects
       </h2>
     </div>
