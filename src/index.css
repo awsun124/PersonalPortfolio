@@ -191,6 +191,49 @@
   color: #302B27;
 }
 
+.monitor-line, .monitor-node {
+  transition: stroke 180ms ease, filter 180ms ease, transform 250ms ease;
+}
+
+.computer-constellation[data-active-target="projects"] [data-monitor="projects"],
+.computer-constellation[data-active-target="journey"] [data-monitor="journey"],
+.computer-constellation[data-active-target="about"] [data-monitor="about"] {
+  color: rgb(var(--accent));
+  filter: drop-shadow(0 0 2px rgb(var(--accent) / 0.25));
+}
+
+.computer-constellation[data-active-target="journey"] [data-graph="true"] {
+  transform: translateY(-4px);
+}
+
+.monitor-link { cursor: pointer; }
+.monitor-link rect, .monitor-link polygon {
+  transition: fill 180ms ease;
+}
+.monitor-link:hover rect, .monitor-link:focus-visible rect,
+.monitor-link:hover polygon, .monitor-link:focus-visible polygon {
+  fill: rgb(var(--accent) / 0.04);
+}
+.monitor-label {
+  font-family: inherit;
+  font-size: 10px;
+  fill: rgb(var(--accent));
+  opacity: 0;
+  transition: opacity 180ms ease;
+  pointer-events: none;
+}
+.monitor-link:hover .monitor-label, .monitor-link:focus-visible .monitor-label {
+  opacity: 1;
+}
+@media (hover: none) {
+  .monitor-label { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .computer-constellation[data-active-target="journey"] [data-graph="true"] {
+    transform: none;
+  }
+}
+
 .constellation-star {
   animation: fadeIn 1.2s ease-out var(--delay) both;
 }
@@ -202,6 +245,33 @@
 
 .constellation-glimmer {
   animation: twinkle 5s ease-in-out 3s infinite both;
+}
+
+/* Each cue gets a short turn in the same nine-second cycle. */
+.constellation-idle-cue {
+  animation: constellationCue 9s ease-in-out var(--delay) infinite both;
+  filter: drop-shadow(0 0 2px rgb(var(--accent) / 0.2));
+}
+
+.constellation-node-ripple {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: constellationRipple 9s ease-out var(--delay) infinite both;
+}
+
+@keyframes constellationCue {
+  0%, 22%, 100% { opacity: 0; }
+  7%, 12% { opacity: 0.85; }
+}
+
+@keyframes constellationRipple {
+  0% { transform: scale(0.7); opacity: 0; }
+  5% { opacity: 0.65; }
+  22%, 100% { transform: scale(2.8); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .constellation-idle-cue { display: none; }
 }
 
 @keyframes connectStars {
@@ -224,9 +294,12 @@
   }
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .interest-photo:hover .interest-caption {
-    visibility: visible;
-    opacity: 1;
-  }
+
+.hobby-card .constellation-star circle {
+  transition: r 150ms ease, fill 150ms ease;
+}
+
+.hobby-card[data-revealed="true"] .constellation-star circle:last-child {
+  r: 1.8;
+  fill: rgb(var(--accent));
 }

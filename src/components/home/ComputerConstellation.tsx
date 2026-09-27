@@ -1,28 +1,29 @@
-import { useId, type CSSProperties } from "react";
+import { useId, useState, type CSSProperties } from "react";
 
 type Constellation = {
   points: string;
   detail?: boolean;
   accent?: boolean;
+  monitor?: "projects" | "journey";
 };
 
 // Each vertex is a star; the connecting segments form the workstation.
 const workspace: Constellation[] = [
   // Complete screen outlines are clipped by the figure silhouette below.
-  { points: "263,276 104,276 104,84 263,84 263,276" },
-  { points: "250,262 117,262 117,98 250,98 250,262", detail: true },
-  { points: "345,139 549,139 549,280 345,280 345,139" },
-  { points: "358,152 535,152 535,265 358,265 358,152", detail: true },
+  { points: "263,276 104,276 104,84 263,84 263,276", monitor: "projects" },
+  { points: "250,262 117,262 117,98 250,98 250,262", detail: true, monitor: "projects" },
+  { points: "345,139 549,139 549,280 345,280 345,139", monitor: "journey" },
+  { points: "358,152 535,152 535,265 358,265 358,152", detail: true, monitor: "journey" },
   { points: "167,276 165,311 141,321 216,321 195,311 195,276" },
   { points: "464,280 464,311 442,322 503,322 484,311 484,280" },
   // A few code strokes and a data chart, rather than tiny UI details.
-  { points: "130,117 237,117", detail: true },
-  { points: "134,140 163,140 174,149 223,149", detail: true },
-  { points: "149,169 205,169", detail: true },
-  { points: "149,188 230,188", detail: true },
-  { points: "134,207 181,207 193,219 222,219", detail: true },
-  { points: "395,226 421,203 447,211 477,181 513,169", accent: true },
-  { points: "395,172 395,245 516,245", detail: true },
+  { points: "130,117 237,117", detail: true, monitor: "projects" },
+  { points: "134,140 163,140 174,149 223,149", detail: true, monitor: "projects" },
+  { points: "149,169 205,169", detail: true, monitor: "projects" },
+  { points: "149,188 230,188", detail: true, monitor: "projects" },
+  { points: "134,207 181,207 193,219 222,219", detail: true, monitor: "projects" },
+  { points: "395,226 421,203 447,211 477,181 513,169", accent: true, monitor: "journey" },
+  { points: "395,172 395,245 516,245", detail: true, monitor: "journey" },
   // Desk edges stay behind the arms and chair.
   { points: "540,315 109,315 60,367 320,390 585,367 540,315" },
   { points: "60,367 60,382 320,405 585,382 585,367" },
@@ -78,6 +79,7 @@ const chairOutline = "235,361 271,369 309,372 352,369 390,361 382,403 374,451 34
 
 const ComputerConstellation = () => {
   const maskId = useId();
+  const [activeTarget, setActiveTarget] = useState<string | null>(null);
   const layers = [
     { shapes: workspace, mask: `${maskId}-workspace` },
     { shapes: person, mask: `${maskId}-chair` },
@@ -86,8 +88,10 @@ const ComputerConstellation = () => {
   ];
 
   return (
-    <div className="computer-constellation w-full max-w-2xl mx-auto lg:-translate-x-8 lg:scale-110" aria-hidden="true">
+    <div className="computer-constellation w-full max-w-2xl mx-auto lg:-translate-x-8 lg:scale-[1.15]" data-active-target={activeTarget}>
       <svg viewBox="40 65 560 500" fill="none" className="w-full h-auto">
+        <circle data-desk-cable cx="170" cy="385" r="1" opacity="0" />
+        <rect data-desk-leg x="82" y="384" width="18" height="147" opacity="0" />
         <defs>
           <mask id={`${maskId}-workspace`} maskUnits="userSpaceOnUse" x="0" y="0" width="640" height="600">
             <rect width="640" height="600" fill="white" />
@@ -100,13 +104,13 @@ const ComputerConstellation = () => {
           </mask>
         </defs>
         {layers.map(({ shapes, mask }, layerIndex) => {
-          const stars = Array.from(new Map(shapes.flatMap(({ points, detail }) =>
-            points.split(" ").map((point) => [point, { point, detail }] as const),
+          const stars = Array.from(new Map(shapes.flatMap(({ points, detail, monitor, accent }) =>
+            points.split(" ").map((point) => [point, { point, detail, monitor, accent }] as const),
           )).values());
 
           return (
             <g key={layerIndex} mask={mask ? `url(#${mask})` : undefined}>
-              {shapes.map(({ points, detail, accent }, index) => (
+              {shapes.map(({ points, detail, accent, monitor }, index) => (
                 <polyline
                   key={points}
                   points={points}
@@ -115,14 +119,16 @@ const ComputerConstellation = () => {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   pathLength="1"
-                  className="constellation-line"
+                  data-monitor={monitor ?? (layerIndex === 1 ? "about" : undefined)}
+                  data-graph={accent || undefined}
+                  className="constellation-line monitor-line"
                   style={{ "--delay": `${0.35 + (index % 11) * 0.1}s` } as CSSProperties}
                 />
               ))}
-              {stars.map(({ point, detail }, index) => {
+              {stars.map(({ point, detail, monitor, accent }, index) => {
                 const [x, y] = point.split(",").map(Number);
                 return (
-                  <g key={point} className="constellation-star" style={{ "--delay": `${(index % 13) * 0.06}s` } as CSSProperties}>
+                  <g key={point} data-monitor={monitor ?? (layerIndex === 1 ? "about" : undefined)} data-graph={accent || undefined} className="constellation-star monitor-node" style={{ "--delay": `${(index % 13) * 0.06}s` } as CSSProperties}>
                     {!detail && <circle cx={x} cy={y} r="4.5" fill="currentColor" opacity="0.06" />}
                     <circle cx={x} cy={y} r={detail ? 1 : 1.8} fill="currentColor" opacity={detail ? 0.55 : 0.9} />
                   </g>
@@ -131,6 +137,50 @@ const ComputerConstellation = () => {
             </g>
           );
         })}
+        {[
+          { id: "projects", label: "view projects ↗", x: 104, y: 84, width: 159, height: 192, labelX: 180, labelY: 248 },
+          { id: "journey", label: "my journey ↗", x: 345, y: 139, width: 204, height: 141, labelX: 454, labelY: 256 },
+        ].map((monitor) => (
+          <a
+            key={monitor.id}
+            href={`#${monitor.id}`}
+            aria-label={monitor.id === "projects" ? "View projects" : "My journey"}
+            className="monitor-link"
+            onMouseEnter={() => setActiveTarget(monitor.id)}
+            onMouseLeave={() => setActiveTarget(null)}
+            onFocus={() => setActiveTarget(monitor.id)}
+            onBlur={() => setActiveTarget(null)}
+          >
+            <rect x={monitor.x} y={monitor.y} width={monitor.width} height={monitor.height} fill="transparent" />
+            <text x={monitor.labelX} y={monitor.labelY} textAnchor="middle" className="monitor-label">{monitor.label}</text>
+          </a>
+        ))}
+        <a
+          href="#about"
+          aria-label="About me"
+          className="monitor-link"
+          onMouseEnter={() => setActiveTarget("about")}
+          onMouseLeave={() => setActiveTarget(null)}
+          onFocus={() => setActiveTarget("about")}
+          onBlur={() => setActiveTarget(null)}
+        >
+          <polygon points={figureOutline} fill="transparent" />
+          <text x="306" y="321" textAnchor="middle" className="monitor-label">about me ↗</text>
+        </a>
+        <g fill="rgb(var(--accent))" pointerEvents="none" aria-hidden="true">
+          {[
+            { x: 104, y: 84, delay: "3s", points: "104,118 104,84 143,84" },
+            { x: 549, y: 139, delay: "6s", points: "508,139 549,139 549,173" },
+            { x: 303, y: 168, delay: "9s", points: "276,175 303,168 328,173 349,187" },
+          ].map(({ x, y, delay, points }) => (
+            <g key={x} className="constellation-idle-cue" style={{ "--delay": delay } as CSSProperties}>
+              <polyline points={points} fill="none" stroke="rgb(var(--accent))" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" opacity="0.55" />
+              <circle cx={x} cy={y} r="7" opacity="0.15" />
+              <circle cx={x} cy={y} r="2.5" opacity="0.8" />
+              <circle cx={x} cy={y} r="5" fill="none" stroke="rgb(var(--accent))" strokeWidth="0.8" className="constellation-node-ripple" />
+            </g>
+          ))}
+        </g>
         <path d="M104 78v12m-6-6h12M549 133v12m-6-6h12M308 548v10m-5-5h10" stroke="currentColor" strokeWidth="0.8" className="constellation-glimmer" />
       </svg>
     </div>
