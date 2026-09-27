@@ -182,7 +182,7 @@
 @media (min-width: 1024px) {
   .space-background,
   .project-background {
-    padding-right: 11rem;
+    padding-right: 13rem;
     padding-left: 1.5rem;
   }
 }
@@ -192,16 +192,16 @@
 }
 
 .constellation-star {
-  animation: fadeIn 1.8s ease-out var(--delay) both;
+  animation: fadeIn 1.2s ease-out var(--delay) both;
 }
 
 .constellation-line {
   stroke-dasharray: 1;
-  animation: connectStars 2.4s ease-in-out var(--delay) both;
+  animation: connectStars 1.6s ease-in-out var(--delay) both;
 }
 
 .constellation-glimmer {
-  animation: twinkle 5s ease-in-out 5s infinite both;
+  animation: twinkle 5s ease-in-out 3s infinite both;
 }
 
 @keyframes connectStars {

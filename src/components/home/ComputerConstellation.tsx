@@ -86,8 +86,8 @@ const ComputerConstellation = () => {
   ];
 
   return (
-    <div className="computer-constellation w-full max-w-2xl mx-auto" aria-hidden="true">
-      <svg viewBox="0 0 640 600" fill="none" className="w-full h-auto">
+    <div className="computer-constellation w-full max-w-2xl mx-auto lg:-translate-x-8 lg:scale-110" aria-hidden="true">
+      <svg viewBox="40 65 560 500" fill="none" className="w-full h-auto">
         <defs>
           <mask id={`${maskId}-workspace`} maskUnits="userSpaceOnUse" x="0" y="0" width="640" height="600">
             <rect width="640" height="600" fill="white" />
@@ -116,13 +116,13 @@ const ComputerConstellation = () => {
                   strokeLinejoin="round"
                   pathLength="1"
                   className="constellation-line"
-                  style={{ "--delay": `${0.7 + (index % 11) * 0.16}s` } as CSSProperties}
+                  style={{ "--delay": `${0.35 + (index % 11) * 0.1}s` } as CSSProperties}
                 />
               ))}
               {stars.map(({ point, detail }, index) => {
                 const [x, y] = point.split(",").map(Number);
                 return (
-                  <g key={point} className="constellation-star" style={{ "--delay": `${(index % 13) * 0.1}s` } as CSSProperties}>
+                  <g key={point} className="constellation-star" style={{ "--delay": `${(index % 13) * 0.06}s` } as CSSProperties}>
                     {!detail && <circle cx={x} cy={y} r="4.5" fill="currentColor" opacity="0.06" />}
                     <circle cx={x} cy={y} r={detail ? 1 : 1.8} fill="currentColor" opacity={detail ? 0.55 : 0.9} />
                   </g>
