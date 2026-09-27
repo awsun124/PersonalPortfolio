@@ -1,0 +1,104 @@
+.journey-timeline {
+  position: relative;
+  --line-position: 0.5rem;
+}
+
+.journey-timeline::before {
+  content: "";
+  position: absolute;
+  top: 1.9rem;
+  bottom: 0.5rem;
+  left: var(--line-position);
+  width: 1px;
+  background: hsl(var(--border));
+}
+
+.journey-stop {
+  position: relative;
+  padding: 0 0 0.5rem 2rem;
+}
+
+.journey-dot {
+  position: absolute;
+  top: 1.65rem;
+  left: calc(var(--line-position) - 4px);
+  width: 9px;
+  height: 9px;
+  border: 1px solid rgb(var(--accent));
+  border-radius: 50%;
+  background: hsl(var(--background));
+  transition: background-color 180ms ease;
+}
+
+.journey-card {
+  min-width: 0;
+  border: 1px solid transparent;
+  border-radius: 1rem;
+  transition: background-color 180ms ease, border-color 180ms ease;
+}
+
+.journey-stop[data-open="true"] .journey-card {
+  border-color: hsl(var(--border));
+  background: hsl(var(--card));
+}
+
+.journey-stop[data-open="true"] .journey-dot {
+  background: rgb(var(--accent));
+}
+
+.journey-toggle {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  padding: 1.25rem;
+  text-align: left;
+  border-radius: 1rem;
+}
+
+.journey-plus {
+  color: rgb(var(--accent));
+  transition: transform 200ms ease;
+}
+
+.journey-details {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  visibility: hidden;
+  transition: grid-template-rows 220ms ease, opacity 180ms ease, visibility 220ms;
+}
+
+.journey-stop[data-open="true"] .journey-details {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  visibility: visible;
+}
+
+.journey-details-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.journey-continuation {
+  position: relative;
+  height: 3rem;
+  margin-left: calc(var(--line-position) - 0.5rem);
+  display: flex;
+  align-items: flex-end;
+  color: hsl(var(--muted-foreground));
+}
+
+@media (min-width: 1024px) {
+  .journey-timeline { --line-position: 50%; }
+  .journey-stop { display: grid; grid-template-columns: 1fr 1fr; padding-left: 0; }
+  .journey-stop:nth-child(odd) .journey-card { grid-column: 1; margin-right: 2rem; }
+  .journey-stop:nth-child(even) .journey-card { grid-column: 2; margin-left: 2rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .journey-card, .journey-dot, .journey-plus, .journey-details {
+    transition: none;
+  }
+}

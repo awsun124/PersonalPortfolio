@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { FolderOpen, House, Mail, Menu, UserRound, X } from "lucide-react";
+import { FolderOpen, House, Mail, Menu, Route, UserRound, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 const navItems = [
   { label: "About", id: "about", icon: UserRound },
   { label: "Projects", id: "projects", icon: FolderOpen },
+  { label: "Journey", id: "journey", icon: Route },
   { label: "Contact", id: "contact", icon: Mail },
 ];
 
@@ -20,8 +21,12 @@ const Navbar = () => {
       return;
     }
 
-    const target = location.hash && document.getElementById(location.hash.slice(1));
-    if (target) target.scrollIntoView({ behavior: "auto" });
+    if (location.hash === "#home") {
+      window.scrollTo({ top: 0, behavior: "auto" });
+    } else {
+      const target = location.hash && document.getElementById(location.hash.slice(1));
+      if (target) target.scrollIntoView({ behavior: "auto" });
+    }
 
     const updateSection = () => {
       let current = "";

@@ -3,6 +3,7 @@ import AboutSection from "@/components/home/AboutSection";
 import ContactSection from "@/components/home/ContactSection";
 import Hero from "@/components/home/Hero";
 import ProjectsSection from "@/components/home/ProjectsSection";
+import JourneySection from "@/components/home/JourneySection";
 
 const HomePage = () => (
   <div className="space-background min-h-screen">
@@ -21,6 +22,7 @@ const HomePage = () => (
         <AboutSection />
       </div>
       <ProjectsSection />
+      <JourneySection />
       <ContactSection />
     </main>
   </div>

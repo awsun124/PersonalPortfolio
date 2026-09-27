@@ -19,7 +19,7 @@ const interests = [
     image: saxophoneImg,
     alt: "Playing the saxophone",
     description:
-      "I played alto and tenor saxophone throughout middle and high school. Glazunov’s Concerto is still my favorite piece I’ve performed.",
+      "I can play alto and tenor saxophone! Glazunov's Concerto is probably my favorite piece I have learned.",
   },
 ];
 
@@ -32,7 +32,7 @@ const AboutSection = () => {
       About
     </h2>
     <p className="text-muted-foreground text-lg md:text-xl leading-relaxed animate-slide-up stagger-2">
-      Soccer, saxophone, and kayaking fill the time between classes and code. Sometimes curiosity turns those interests into a project. They also keep me creative, curious, and open to new experiences.
+      Soccer, saxophone, and kayaking are just a few of my hobbies outside of classes and code. Sometimes, they even turn into projects! They keep me creative, curious, and open to new experiences.
     </p>
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 animate-scale-in">
       {interests.map((interest, index) => (

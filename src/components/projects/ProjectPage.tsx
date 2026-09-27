@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import { ArrowLeft } from "lucide-react";
-import type { ReactNode } from "react";
+import { useLayoutEffect, type ReactNode } from "react";
+import { useLocation } from "react-router-dom";
 
 type ProjectPageProps = {
   title: string;
@@ -16,7 +17,14 @@ const ProjectPage = ({
   children,
   headerClassName = "mb-10",
   titleClassName = "text-3xl md:text-5xl font-bold tracking-tight leading-tight mb-3",
-}: ProjectPageProps) => (
+}: ProjectPageProps) => {
+  const { pathname } = useLocation();
+
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, [pathname]);
+
+  return (
   <div className="project-background min-h-screen animate-fade-in">
     <Navbar />
     <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -36,6 +44,7 @@ const ProjectPage = ({
       {children}
     </main>
   </div>
-);
+  );
+};
 
 export default ProjectPage;
