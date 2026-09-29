@@ -2,7 +2,6 @@ import { useState } from "react";
 import { ArrowDown, ArrowUpRight, Plus } from "lucide-react";
 import { Link } from "react-router-dom";
 import { journey } from "@/data/journey";
-import angleTool from "@/assets/angle-tool.png";
 import "./JourneySection.css";
 
 const JourneySection = () => {
@@ -56,7 +55,6 @@ const JourneySection = () => {
                     <span className="block min-w-0">
                       <span className="block text-xs tracking-widest uppercase text-accent mb-2">{milestone.date}</span>
                       <span id={titleId} className="block text-lg sm:text-xl font-semibold leading-snug">{milestone.title}</span>
-                      <span className="block text-sm text-muted-foreground font-normal mt-2">{milestone.subtitle}</span>
                     </span>
                     <Plus aria-hidden="true" className={`journey-plus w-4 h-4 shrink-0 mt-1 ${open ? "rotate-45" : ""}`} />
                   </button>
@@ -64,14 +62,22 @@ const JourneySection = () => {
                 <div id={panelId} role="region" aria-labelledby={titleId} aria-hidden={!open} className="journey-details">
                   <div className="journey-details-inner">
                     <div className="px-5 pb-5">
-                      <p className="text-muted-foreground text-base leading-relaxed">{milestone.description}</p>
-                      {milestone.id === 5 && (
-                        <img src={angleTool} alt="Measuring a penalty kicker’s angles with the research image analysis tool" width={640} height={480} loading="lazy" className="mt-4 w-full max-w-xs h-36 object-contain rounded-xl bg-muted" />
-                      )}
-                      {milestone.link && (
-                        <Link to={milestone.link.href} tabIndex={open ? 0 : -1} className="inline-flex items-center gap-2 mt-4 text-sm text-accent underline underline-offset-4">
-                          {milestone.link.label} <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
-                        </Link>
+                      <p className="text-muted-foreground text-base leading-relaxed">
+                        {milestone.description.split("Dive into Deep Learning").map((part, index) => (
+                          <span key={index}>
+                            {index > 0 && <em>Dive into Deep Learning</em>}
+                            {part}
+                          </span>
+                        ))}
+                      </p>
+                      {milestone.links && (
+                        <div className="flex flex-wrap gap-x-5 gap-y-2 mt-4">
+                          {milestone.links.map((link) => (
+                            <Link key={link.href} to={link.href} tabIndex={open ? 0 : -1} className="inline-flex items-center gap-2 text-sm text-accent underline underline-offset-4">
+                              {link.label} <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+                            </Link>
+                          ))}
+                        </div>
                       )}
                     </div>
                   </div>
