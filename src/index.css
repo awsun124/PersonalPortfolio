@@ -235,12 +235,12 @@
 }
 
 .constellation-star {
-  animation: fadeIn 1.2s ease-out var(--delay) both;
+  animation: fadeIn 1s ease-out calc(var(--delay, 0s) * 0.833333) both;
 }
 
 .constellation-line {
   stroke-dasharray: 1;
-  animation: connectStars 1.6s ease-in-out var(--delay) both;
+  animation: connectStars 1.333333s ease-in-out calc(var(--delay, 0s) * 0.833333) both;
 }
 
 .constellation-glimmer {
