@@ -7,6 +7,12 @@ export type ProjectSummary = {
 
 export const projects: ProjectSummary[] = [
   {
+    id: "north-carolina-digital-twin",
+    title: "North Carolina Digital Twin",
+    category: "Research at Duke University",
+    year: "2026",
+  },
+  {
     id: "aspida-ai-chatbot",
     title: "Intelligent Information Assistant",
     category: "AI Systems",

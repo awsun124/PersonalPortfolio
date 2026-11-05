@@ -8,6 +8,7 @@ import BinBotProject from "./pages/BinBotProject";
 import SpectreProject from "./pages/SpectreProject";
 import AspidaProject from "./pages/AspidaProject";
 import SuncastProject from "./pages/SuncastProject";
+import DigitalTwinProject from "./pages/DigitalTwinProject";
 
 const App = () => (
   <BrowserRouter>
@@ -27,6 +28,10 @@ const App = () => (
       <Route
         path="/project/duke-impact-investing-suncast"
         element={<SuncastProject />}
+      />
+      <Route
+        path="/project/north-carolina-digital-twin"
+        element={<DigitalTwinProject />}
       />
       <Route path="*" element={<NotFound />} />
     </Routes>
