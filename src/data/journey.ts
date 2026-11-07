@@ -49,6 +49,6 @@ export const journey: JourneyMilestone[] = [
     id: 6,
     date: "Now",
     title: "Still exploring",
-    description: "I’m continuing my studies at Duke and taking courses in databases and machine learning. I’m still exploring what areas of computer science I enjoy most, and I want to keep building, trying new things, and learning from the people I work with."
+    description: "I’m continuing my studies at Duke and taking courses in databases and machine learning. Alongside my coursework, I’m doing lab research that lets me put what I’m learning into practice and work through real data challenges. I’m still exploring what areas of computer science I enjoy most, and I want to keep building, trying new things, and learning from the people I work with."
   }
 ];
