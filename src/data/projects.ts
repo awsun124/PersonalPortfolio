@@ -8,7 +8,7 @@ export type ProjectSummary = {
 export const projects: ProjectSummary[] = [
   {
     id: "courtside-agent",
-    title: "Courtside AI",
+    title: "Courtside-Agent",
     category: "AI Agents & Sports Analytics",
     year: "2026",
   },

@@ -9,9 +9,9 @@ import {
 } from "lucide-react";
 
 const CourtsideProject = () => (
-  <ProjectPage title="Courtside AI" year="2026">
+  <ProjectPage title="Courtside-Agent" year="2026">
     <p className="text-lg text-muted-foreground leading-relaxed mb-16">
-      Courtside AI is a personal NBA news briefing app I built around one
+      Courtside-Agent is a personal NBA news briefing app I built around one
       goal: making it easier to stay on top of league news without having to browse
       endless tabs, headlines, and duplicate stories. I wanted a cleaner way to
       follow the stories that matter most and keep up with the latest developments
@@ -134,7 +134,7 @@ const CourtsideProject = () => (
         Why I built it
       </h2>
       <p className="text-foreground/80 leading-relaxed">
-        I built Courtside AI to get hands-on experience designing AI agents
+        I built Courtside-Agent to get hands-on experience designing AI agents
         around something I genuinely care about: keeping up with the NBA and the
         76ers. I wanted to learn how an agent could use tools to investigate
         stories, while staying grounded in evidence and within clear limits.
