@@ -49,6 +49,6 @@ export const journey: JourneyMilestone[] = [
     id: 6,
     date: "Now",
     title: "Still exploring",
-    description: "I’m continuing my studies at Duke and taking courses in databases and machine learning. Alongside my coursework, I’m doing lab research that lets me put what I’m learning into practice and work through real data challenges. I’m still exploring what areas of computer science I enjoy most, and I want to keep building, trying new things, and learning from the people I work with."
+    description: "At Duke, I’m studying Computer Science and Statistical Science while working as a Computational Research Assistant on a digital twin spanning six North Carolina counties. I build Python and Pandas pipelines to process Census data, and run and test workflows on Duke’s HPC cluster. Outside research, I’m building Courtside-Agent to get hands-on experience with AI agents and bring together my interests in basketball and software. I’m still exploring computer science, and I’m excited to keep learning by building."
   }
 ];
