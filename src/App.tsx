@@ -9,7 +9,6 @@ import SpectreProject from "./pages/SpectreProject";
 import AspidaProject from "./pages/AspidaProject";
 import SuncastProject from "./pages/SuncastProject";
 import DigitalTwinProject from "./pages/DigitalTwinProject";
-import DukeResearchProject from "./pages/DukeResearchProject";
 import CourtsideProject from "./pages/CourtsideProject";
 
 const App = () => (
@@ -17,7 +16,6 @@ const App = () => (
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/project/courtside-agent" element={<CourtsideProject />} />
-      <Route path="/project/duke-research-lab" element={<DukeResearchProject />} />
       <Route
         path="/project/penalty-kick-prediction"
         element={<PenaltyKickProject />}

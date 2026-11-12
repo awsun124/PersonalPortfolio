@@ -13,12 +13,6 @@ export const projects: ProjectSummary[] = [
     year: "2026",
   },
   {
-    id: "duke-research-lab",
-    title: "Duke Research Lab",
-    category: "Applied Research",
-    year: "2026",
-  },
-  {
     id: "north-carolina-digital-twin",
     title: "North Carolina Digital Twin",
     category: "Research at Duke University",
