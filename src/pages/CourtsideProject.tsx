@@ -1,188 +1,143 @@
 import ProjectPage from "@/components/projects/ProjectPage";
-import {
-  BarChart3,
-  BrainCircuit,
-  Database,
-  Newspaper,
-  RefreshCcw,
-  ShieldCheck,
-} from "lucide-react";
+import { BrainCircuit, ChartNoAxesCombined, Database, ShieldCheck } from "lucide-react";
+
+const highlights = [
+  {
+    icon: BrainCircuit,
+    title: "AI news investigator",
+    description: "Searches articles, checks excerpts, and compares past briefings. Saves its sources and tool calls.",
+  },
+  {
+    icon: ChartNoAxesCombined,
+    title: "NBA prediction models",
+    description: "Estimates win probabilities from team strength, scoring margins, rest, and confirmed player absences.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Time-based evaluation",
+    description: "Trains on earlier games and tests on later ones. Forecasts close one hour before tipoff.",
+  },
+  {
+    icon: Database,
+    title: "Saved forecasts & results",
+    description: "Keeps original forecasts and checks them against final scores. Tracks live results separately from backtests.",
+  },
+];
 
 const CourtsideProject = () => (
-  <ProjectPage title="Courtside-Agent" year="2026">
+  <ProjectPage title="Courtside" year="2026">
     <p className="text-lg text-muted-foreground leading-relaxed mb-16">
-      Courtside-Agent is a personal NBA news briefing app I built around one
-      goal: making it easier to stay on top of league news without having to browse
-      endless tabs, headlines, and duplicate stories. I wanted a cleaner way to
-      follow the stories that matter most and keep up with the latest developments
-      in one place. And, of course, I wanted to keep up with all things 76ers
-      related.
+      I built Courtside to keep up with the NBA and the 76ers, and to try out
+      ideas in AI and statistics. It collects league news, uses an agent to
+      investigate stories, and predicts game outcomes with models trained on
+      historical results.
     </p>
 
     <section className="mb-16">
-      <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-6">
-        Overview
-      </h2>
-      <p className="text-foreground/80 leading-relaxed">
-        The app pulls coverage from multiple sources, groups related articles into
-        distinct stories, and ranks them by importance so the most covered and
-        most significant developments rise to the top. Instead of showing a raw
-        feed, it brings scattered NBA reporting together in a focused briefing
-        that’s easier to follow than a long list of links.
-      </p>
-    </section>
-
-    <section className="mb-16">
       <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-8">
-        What it does
+        Project highlights
       </h2>
-
-      <div className="grid gap-4">
-        <div className="flex items-start gap-4 p-5 rounded-2xl border border-border bg-muted/30">
-          <div className="p-2.5 rounded-xl bg-primary/10 text-primary flex-shrink-0">
-            <Newspaper className="w-5 h-5" />
+      <div className="grid gap-4 md:grid-cols-2">
+        {highlights.map(({ icon: Icon, title, description }) => (
+          <div key={title} className="flex items-start gap-4 p-5 rounded-2xl border border-border bg-muted/30">
+            <div className="p-2.5 rounded-xl bg-primary/10 text-primary flex-shrink-0">
+              <Icon className="w-5 h-5" />
+            </div>
+            <div>
+              <h3 className="font-semibold mb-1">{title}</h3>
+              <p className="text-sm text-foreground/70">{description}</p>
+            </div>
           </div>
-          <div>
-            <h4 className="font-semibold mb-1">Story aggregation</h4>
-            <p className="text-sm text-foreground/70">
-              It collects NBA coverage from multiple sources, filters it for
-              relevance, and groups related reporting so duplicate mentions don’t
-              clutter the briefing.
-            </p>
-          </div>
-        </div>
-
-        <div className="flex items-start gap-4 p-5 rounded-2xl border border-border bg-muted/30">
-          <div className="p-2.5 rounded-xl bg-primary/10 text-primary flex-shrink-0">
-            <BarChart3 className="w-5 h-5" />
-          </div>
-          <div>
-            <h4 className="font-semibold mb-1">Ranking and scoring</h4>
-            <p className="text-sm text-foreground/70">
-              Each story gets scored based on coverage, momentum, and freshness to
-              highlight the developments with the strongest evidence and the widest
-              reporting base.
-            </p>
-          </div>
-        </div>
-
-        <div className="flex items-start gap-4 p-5 rounded-2xl border border-border bg-muted/30">
-          <div className="p-2.5 rounded-xl bg-primary/10 text-primary flex-shrink-0">
-            <Database className="w-5 h-5" />
-          </div>
-          <div>
-            <h4 className="font-semibold mb-1">Reliable data flow</h4>
-            <p className="text-sm text-foreground/70">
-              The backend stores briefings and source metadata in SQLite for
-              local storage, with PostgreSQL support for deployment, so the app
-              can save daily updates and review older editions.
-            </p>
-          </div>
-        </div>
-
-        <div className="flex items-start gap-4 p-5 rounded-2xl border border-border bg-muted/30">
-          <div className="p-2.5 rounded-xl bg-primary/10 text-primary flex-shrink-0">
-            <BrainCircuit className="w-5 h-5" />
-          </div>
-          <div>
-            <h4 className="font-semibold mb-1">Tool-using AI investigator</h4>
-            <p className="text-sm text-foreground/70">
-              The optional agent can search saved articles, retrieve allowed
-              evidence, inspect related stories, and compare past briefings. Its
-              work is bounded, and it can’t change the numerical rankings.
-            </p>
-          </div>
-        </div>
+        ))}
       </div>
     </section>
 
     <section className="mb-16">
       <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-6">
-        Architecture and AI agent
+        Building the news agent
       </h2>
       <p className="text-foreground/80 leading-relaxed mb-6">
-        A key part of the project is an optional, bounded AI investigator. Instead
-        of asking a model to answer from a prompt alone, I gave it a small set of
-        tools to search saved articles, retrieve permitted evidence, inspect
-        related reporting, and compare previous briefings. Its tool calls and
-        citations are saved, and it can’t change the numerical story rankings.
-        Keeping that investigation separate from the scoring system was an
-        important part of the design.
+        The news pipeline collects coverage from GNews, RSS feeds, and
+        FreeNewsApi.ai, groups reports about the same event, and ranks up to ten
+        stories. The optional investigator then uses tools to examine the saved
+        evidence and compare how a story has developed across editions.
+        Summaries must quote retrieved evidence, and headline-only sources are
+        excluded from model input.
       </p>
+      <p className="text-foreground/80 leading-relaxed">
+        I set limits on the agent’s steps, runtime, model calls, and input size.
+        It saves its sources and tool history so I can review what it did.
+        The ranking code calculates story scores separately, and the agent can’t
+        change them.
+      </p>
+    </section>
 
-      <div className="grid gap-4 md:grid-cols-2">
-        <div className="p-5 rounded-2xl border border-border bg-muted/30">
-          <h4 className="font-semibold mb-2">Frontend</h4>
-          <p className="text-sm text-foreground/70">
-            React and TypeScript power the dashboard, with team filters, story
-            browsing, saved reading states, and ranking views.
-          </p>
-        </div>
-        <div className="p-5 rounded-2xl border border-border bg-muted/30">
-          <h4 className="font-semibold mb-2">Backend</h4>
-          <p className="text-sm text-foreground/70">
-            FastAPI handles news collection, processing, ranking, and agent
-            orchestration, with SQLite for local storage and PostgreSQL support
-            for deployment.
-          </p>
-        </div>
+    <section className="mb-16">
+      <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-6">
+        Training the prediction models
+      </h2>
+      <p className="text-foreground/80 leading-relaxed mb-6">
+        The prediction research compares Elo, logistic regression, regularized
+        scoring-margin models, boosted trees, and ensembles. The selected
+        strength model blends two ridge regressions with an adaptive margin
+        rating, converting predicted scoring margins into win probabilities.
+        Features capture opponent strength, home court, and rest using results
+        available before each forecast.
+      </p>
+      <p className="text-foreground/80 leading-relaxed mb-6">
+        Model selection uses four expanding chronological validation folds.
+        The production pipeline also checks official NBA injury reports and
+        recent player box scores, applying a validation-selected adjustment for
+        confirmed absences. Questionable players remain explicitly uncertain,
+        and existing long-term absences receive a smaller or zero additional
+        penalty.
+      </p>
+      <div className="p-6 rounded-2xl border border-border bg-muted/30">
+        <p className="text-sm font-medium text-primary mb-2">Historical evaluation · February 1–April 12, 2026</p>
+        <p className="text-2xl md:text-3xl font-bold tracking-tight mb-3">375 of 501 winners · 74.9%</p>
+        <p className="text-sm text-foreground/70 leading-relaxed">
+          Historical test: 0.17856 Brier score (probability error). Live results
+          are tracked separately.
+        </p>
       </div>
     </section>
 
     <section className="mb-16">
       <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-6">
-        Why I built it
+        Tracking predictions over time
       </h2>
-      <p className="text-foreground/80 leading-relaxed">
-        I built Courtside-Agent to get hands-on experience designing AI agents
-        around something I genuinely care about: keeping up with the NBA and the
-        76ers. I wanted to learn how an agent could use tools to investigate
-        stories, while staying grounded in evidence and within clear limits.
-      </p>
-    </section>
-
-    <section className="mb-16">
-      <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-8">
-        Tools and stack
-      </h2>
-
-      <div className="grid gap-4 md:grid-cols-2">
-        <div className="flex items-start gap-4 p-5 rounded-2xl border border-border bg-muted/30">
-          <div className="p-2.5 rounded-xl bg-primary/10 text-primary flex-shrink-0">
-            <RefreshCcw className="w-5 h-5" />
-          </div>
-          <div>
-            <h4 className="font-semibold mb-1">Daily refreshes</h4>
-            <p className="text-sm text-foreground/70">
-              The app can refresh on a schedule and keep a running backlog of the
-              most recent NBA briefings.
-            </p>
-          </div>
-        </div>
-
-        <div className="flex items-start gap-4 p-5 rounded-2xl border border-border bg-muted/30">
-          <div className="p-2.5 rounded-xl bg-primary/10 text-primary flex-shrink-0">
-            <ShieldCheck className="w-5 h-5" />
-          </div>
-          <div>
-            <h4 className="font-semibold mb-1">Evidence-aware workflow</h4>
-            <p className="text-sm text-foreground/70">
-              The app tries to keep the ranking grounded in source coverage and
-              evidence instead of pure model speculation.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section className="mb-16">
-      <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-6">Build</h2>
       <p className="text-foreground/80 leading-relaxed mb-6">
-        This project is a good example of combining an interest I care about with
-        the kind of engineering challenges I enjoy: data processing, product
-        design, and building something that feels useful in the real world.
+        GitHub Actions runs the prediction worker on a schedule. It refreshes
+        results and upcoming games, generates forecasts, checks player
+        availability, and saves immutable observations. The latest valid forecast
+        recorded before the one-hour cutoff becomes the displayed and graded
+        prediction. Later score corrections can update settlement without
+        rewriting the original forecast.
       </p>
+      <p className="text-foreground/80 leading-relaxed">
+        Only one prediction job can run at a time. The app reuses saved
+        bookmaker prices and limits monthly API requests to control usage.
+        Opening a page loads saved data without making new provider requests.
+        Missing injury reports and prices are labeled, and games only count
+        toward accuracy once their final results are available.
+      </p>
+    </section>
 
+    <section className="mb-16">
+      <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-6">
+        Building the app
+      </h2>
+      <p className="text-foreground/80 leading-relaxed mb-6">
+        I built the news, rankings, stats, and predictions views with React and
+        TypeScript, including team filters, bookmarks, unread markers, and spoiler controls.
+        FastAPI serves saved briefings and forecasts, backed by SQLite locally
+        or PostgreSQL in deployment. Python handles collection, agent
+        tool use, feature engineering, and model evaluation.
+      </p>
+      <p className="text-foreground/80 leading-relaxed mb-8">
+        My favorite part has been saving predictions before games start,
+        checking them afterward, and seeing where the models get things wrong.
+      </p>
       <a
         href="https://github.com/awsun124/Courtside-Agent"
         target="_blank"

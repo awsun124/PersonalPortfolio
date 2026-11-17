@@ -49,6 +49,6 @@ export const journey: JourneyMilestone[] = [
     id: 6,
     date: "Now",
     title: "Still exploring",
-    description: "At Duke, I’m studying Computer Science and Statistical Science while working as a Computational Research Assistant on a digital twin spanning six North Carolina counties. I build Python and Pandas pipelines to process Census data, and run and test workflows on Duke’s HPC cluster. Outside research, I’m building Courtside-Agent to get hands-on experience with AI agents and bring together my interests in basketball and software. I’m still exploring computer science, and I’m excited to keep learning by building."
+    description: "At Duke, I’m studying Computer Science and Statistical Science while working as a Computational Research Assistant on a digital twin spanning six North Carolina counties. I build Python and Pandas pipelines to process Census data, and run and test workflows on Duke’s HPC cluster. Outside research, I’m building Courtside to explore AI agents and NBA prediction models, bringing together my interests in basketball, statistics, and software. I’m still exploring computer science, and I’m excited to keep learning by building."
   }
 ];
