@@ -4,8 +4,8 @@ import { BrainCircuit, ChartNoAxesCombined, Database, ShieldCheck } from "lucide
 const highlights = [
   {
     icon: BrainCircuit,
-    title: "AI news investigator",
-    description: "Searches articles, checks excerpts, and compares past briefings. Saves its sources and tool calls.",
+    title: "News investigator",
+    description: "Uses local rules to check saved excerpts, flag conflicting reports, and record citations and tool calls.",
   },
   {
     icon: ChartNoAxesCombined,
@@ -14,8 +14,8 @@ const highlights = [
   },
   {
     icon: ShieldCheck,
-    title: "Time-based evaluation",
-    description: "Trains on earlier games and tests on later ones. Forecasts close one hour before tipoff.",
+    title: "News quality checks",
+    description: "Tests citations, source restrictions, and tool limits in CI. Reviewed failures become regression tests.",
   },
   {
     icon: Database,
@@ -27,10 +27,11 @@ const highlights = [
 const CourtsideProject = () => (
   <ProjectPage title="Courtside" year="2026">
     <p className="text-lg text-muted-foreground leading-relaxed mb-16">
-      I built Courtside to keep up with the NBA and the 76ers, and to try out
-      ideas in AI and statistics. It collects league news, uses an agent to
-      investigate stories, and predicts game outcomes with models trained on
-      historical results.
+      Basketball has been one of my longtime interests, so I built Courtside
+      to keep up with the NBA while exploring software development and
+      machine learning. It groups NBA coverage into daily
+      briefings, checks the supporting excerpts, and predicts game outcomes
+      with models trained on historical results.
     </p>
 
     <section className="mb-16">
@@ -54,21 +55,20 @@ const CourtsideProject = () => (
 
     <section className="mb-16">
       <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-6">
-        Building the news agent
+        Checking the news
       </h2>
       <p className="text-foreground/80 leading-relaxed mb-6">
-        The news pipeline collects coverage from GNews, RSS feeds, and
-        FreeNewsApi.ai, groups reports about the same event, and ranks up to ten
-        stories. The optional investigator then uses tools to examine the saved
-        evidence and compare how a story has developed across editions.
-        Summaries must quote retrieved evidence, and headline-only sources are
-        excluded from model input.
+        The news pipeline groups coverage from GNews, RSS feeds, and
+        FreeNewsApi.ai into distinct stories. A rules-based investigator searches
+        saved articles, checks permitted excerpts, and compares earlier briefings.
+        It flags conflicting player-availability reports and saves citations
+        and tool calls. It runs locally without a paid model API.
       </p>
       <p className="text-foreground/80 leading-relaxed">
-        I set limits on the agent’s steps, runtime, model calls, and input size.
-        It saves its sources and tool history so I can review what it did.
-        The ranking code calculates story scores separately, and the agent can’t
-        change them.
+        I set limits on runtime, retrieval, and tool calls. Article text is
+        treated as evidence, and suspicious instructions are excluded. Sources
+        limited to headline attribution stay out of investigation input.
+        Separate ranking code calculates story scores.
       </p>
     </section>
 
@@ -77,27 +77,25 @@ const CourtsideProject = () => (
         Training the prediction models
       </h2>
       <p className="text-foreground/80 leading-relaxed mb-6">
-        The prediction research compares Elo, logistic regression, regularized
-        scoring-margin models, boosted trees, and ensembles. The selected
-        strength model blends two ridge regressions with an adaptive margin
-        rating, converting predicted scoring margins into win probabilities.
-        Features capture opponent strength, home court, and rest using results
-        available before each forecast.
+        I compared Elo, logistic regression, scoring-margin models, boosted
+        trees, and model blends using earlier games to predict later ones.
+        The selected model combines team-strength ratings and opponent-adjusted
+        scoring margins with home court and rest. Bookmaker odds appear beside
+        forecasts for comparison and are never model inputs.
       </p>
       <p className="text-foreground/80 leading-relaxed mb-6">
-        Model selection uses four expanding chronological validation folds.
-        The production pipeline also checks official NBA injury reports and
-        recent player box scores, applying a validation-selected adjustment for
-        confirmed absences. Questionable players remain explicitly uncertain,
-        and existing long-term absences receive a smaller or zero additional
-        penalty.
+        Official NBA injury reports and recent player box scores inform an
+        adjustment for confirmed absences. Questionable players remain uncertain,
+        and long-term absences receive a smaller or zero additional penalty.
       </p>
       <div className="p-6 rounded-2xl border border-border bg-muted/30">
         <p className="text-sm font-medium text-primary mb-2">Historical evaluation · February 1–April 12, 2026</p>
         <p className="text-2xl md:text-3xl font-bold tracking-tight mb-3">375 of 501 winners · 74.9%</p>
         <p className="text-sm text-foreground/70 leading-relaxed">
-          Historical test: 0.17856 Brier score (probability error). Live results
-          are tracked separately.
+          The frozen original model scored 0.1795 Brier (probability error).
+          An injury adjustment chosen on January games kept the same 375 correct
+          picks and improved Brier to 0.1786 on these same 501 games. That
+          comparison reused the test set. Live results are tracked separately.
         </p>
       </div>
     </section>
@@ -107,7 +105,8 @@ const CourtsideProject = () => (
         Tracking predictions over time
       </h2>
       <p className="text-foreground/80 leading-relaxed mb-6">
-        GitHub Actions runs the prediction worker on a schedule. It refreshes
+        GitHub Actions refreshes predictions at 6 AM Eastern and hourly from noon
+        through 11 PM. It refreshes
         results and upcoming games, generates forecasts, checks player
         availability, and saves immutable observations. The latest valid forecast
         recorded before the one-hour cutoff becomes the displayed and graded
@@ -119,7 +118,26 @@ const CourtsideProject = () => (
         bookmaker prices and limits monthly API requests to control usage.
         Opening a page loads saved data without making new provider requests.
         Missing injury reports and prices are labeled, and games only count
-        toward accuracy once their final results are available.
+        toward accuracy once their final results are available. The app shows
+        the previous seven days of results.
+      </p>
+    </section>
+
+    <section className="mb-16">
+      <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-6">
+        Testing and reviewing briefings
+      </h2>
+      <p className="text-foreground/80 leading-relaxed mb-6">
+        The news-quality workflow runs investigator tests and 33 development
+        cases on pushes and pull requests. It checks citations, source
+        restrictions, and tool limits, and saves reports for review. These
+        checks help catch regressions but do not establish factual accuracy.
+      </p>
+      <p className="text-foreground/80 leading-relaxed">
+        I also built a tool to review saved live briefings and turn failures
+        into regression cases. Reviews caught a missing game result and a
+        cut-off sentence, which now have tests. Collection failures open a
+        GitHub issue that closes automatically when the workflow recovers.
       </p>
     </section>
 
@@ -129,15 +147,25 @@ const CourtsideProject = () => (
       </h2>
       <p className="text-foreground/80 leading-relaxed mb-6">
         I built the news, rankings, stats, and predictions views with React and
-        TypeScript, including team filters, bookmarks, unread markers, and spoiler controls.
+        TypeScript, including team filters, bookmarks, read status, and an option to hide game spoilers.
         FastAPI serves saved briefings and forecasts, backed by SQLite locally
-        or PostgreSQL in deployment. Python handles collection, agent
-        tool use, feature engineering, and model evaluation.
+        or PostgreSQL in deployment. Python handles collection, evidence checks, feature engineering, and model
+        evaluation. The frontend runs on Vercel, the API on Render, and the
+        database on Neon.
       </p>
       <p className="text-foreground/80 leading-relaxed mb-8">
         My favorite part has been saving predictions before games start,
-        checking them afterward, and seeing where the models get things wrong.
+        checking them afterward, and seeing where the models get things right
+        and where they miss.
       </p>
+      <a
+        href="https://courtside-agent.vercel.app"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-2 px-6 py-3 mr-3 mb-3 rounded-full bg-primary text-primary-foreground font-medium hover:bg-primary/90 hover:scale-105 transition-all"
+      >
+        Visit Courtside →
+      </a>
       <a
         href="https://github.com/awsun124/Courtside-Agent"
         target="_blank"

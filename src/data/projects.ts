@@ -9,7 +9,7 @@ export const projects: ProjectSummary[] = [
   {
     id: "courtside-agent",
     title: "Courtside",
-    category: "AI Agents & Predictive Modeling",
+    category: "NBA News & Predictive Modeling",
     year: "2026",
   },
   {
