@@ -1,5 +1,5 @@
 import { useId, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
-import profileImg from "@/assets/profile-cutout.png";
+import profileImg from "@/assets/profile-photo.jpg";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import ComputerConstellation from "@/components/home/ComputerConstellation";
 import BackpackSketch from "@/components/home/BackpackSketch";
@@ -64,14 +64,16 @@ const Hero = () => {
             Hi, I'm<br /> <span className="text-accent">Andy.</span>
           </h1>
         </div>
-        <img
-          src={profileImg}
-          alt="Andy Sun"
-          width={612}
-          height={408}
-          fetchPriority="high"
-          className="w-44 h-44 lg:w-36 lg:h-36 xl:w-48 xl:h-48 2xl:w-56 2xl:h-56 shrink-0 rounded-full bg-[#D5C3B5] object-cover"
-        />
+        <div className="w-44 h-44 lg:w-36 lg:h-36 xl:w-48 xl:h-48 2xl:w-56 2xl:h-56 shrink-0 overflow-hidden rounded-full bg-[#D5C3B5]">
+          <img
+            src={profileImg}
+            alt="Andy Sun"
+            width={3400}
+            height={2550}
+            fetchPriority="high"
+            className="h-full w-full object-cover scale-[1.2] origin-[50%_40%]"
+          />
+        </div>
       </div>
       <p className="text-muted-foreground text-lg sm:text-xl xl:text-2xl leading-relaxed max-w-xl">
         I study Computer Science and Statistics at Duke. Unfamiliarity motivates me to explore. Building and innovating lets me turn that curiosity into something real through code, AI, and machine learning.

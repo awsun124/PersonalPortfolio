@@ -92,10 +92,8 @@ const CourtsideProject = () => (
         <p className="text-sm font-medium text-primary mb-2">Historical evaluation · February 1–April 12, 2026</p>
         <p className="text-2xl md:text-3xl font-bold tracking-tight mb-3">375 of 501 winners · 74.9%</p>
         <p className="text-sm text-foreground/70 leading-relaxed">
-          The frozen original model scored 0.1795 Brier (probability error).
-          An injury adjustment chosen on January games kept the same 375 correct
-          picks and improved Brier to 0.1786 on these same 501 games. That
-          comparison reused the test set. Live results are tracked separately.
+          The model correctly predicted 375 of 501 historical games (74.9%).
+          Live results are tracked separately.
         </p>
       </div>
     </section>
